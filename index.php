@@ -28,7 +28,7 @@ require_once("functions.php");
 <body>
       <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
-          <img src="./image229.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          <img src="../image229.png" width="30" height="30" class="d-inline-block align-top" alt="">
         </a>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
