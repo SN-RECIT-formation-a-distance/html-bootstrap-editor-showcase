@@ -15,7 +15,8 @@ $(document).ready(function(){
         var val = $('#search').val().toLowerCase();
         $('.col-tpl').each(function(e){
             var title = $('.title', this).text().toLowerCase();
-            if (val.length > 0 && !title.includes(val)){
+            var tags = $('.tags', this).text().toLowerCase();
+            if (val.length > 0 && !title.includes(val) && !tags.includes(val)){
                 $(this).hide();
             }else{
                 $(this).show();

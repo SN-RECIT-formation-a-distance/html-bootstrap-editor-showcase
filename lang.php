@@ -7,6 +7,7 @@ $langs = array(
             'showcase' => 'SHOWCASE',
             'templateshowcase' => 'Template showcase',
             'search' => 'Search',
+            'tags' => 'Tags',
             'import' => 'Import',
             'foreditor' => 'For HTML Editor',
         )
@@ -14,6 +15,7 @@ $langs = array(
     'fr' => array(
         'name' => 'Français',
         'strings' => array(
+            'tags' => 'Tags',
             'showcase' => 'VITRINE',
             'templateshowcase' => 'Vitrine de gabarits',
             'search' => 'Rechercher',

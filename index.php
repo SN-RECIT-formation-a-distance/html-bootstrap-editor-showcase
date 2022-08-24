@@ -6,6 +6,7 @@ if (isset($argv[1]) && isset($langs[$argv[1]])){
 }
 $strings = $langs[$lang]['strings'];
 require_once("functions.php");
+$data = getTemplates("templates/".$lang);
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,7 +59,7 @@ require_once("functions.php");
 </div>
         <?php
         $count = 0;
-        foreach(getTemplates("templates/".$lang) as $tpl):
+        foreach($data['templates'] as $tpl):
                 if (!$count%4){
                     echo '<div class="row mt-3 mt-center">'; 
                 } ?>
@@ -68,8 +69,18 @@ require_once("functions.php");
                                   <div class="imgcontainer">
                                     <img src="<?php echo $tpl['img']; ?>">
                                   </div>
-                                    <div class="bg-item-title"><p class="title"><?php echo $tpl['name']; ?></p>
-                                </div>
+                                  <div class="bg-item-title">
+                                      <p class="title"><?php echo $tpl['name']; ?></p>
+                                      <p class="tags">
+                                        <?php
+                                        if (isset($tpl['tags'])){
+                                          foreach ($tpl['tags'] as $tag){
+                                            echo '<span class="badge badge-primary m-1">'.$tag.'</span> ';
+                                          } 
+                                        }
+                                        ?>
+                                      </p>
+                                  </div>
                                 </div>
                             </div>
                         </div>

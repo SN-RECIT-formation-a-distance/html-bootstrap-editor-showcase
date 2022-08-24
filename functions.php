@@ -1,6 +1,7 @@
 <?php
 function getTemplates($dir){
     $templates = array();
+    $tags = array();
     $files = scandir($dir);
     foreach ($files as $f){
         $file = $dir."/".$f;
@@ -10,6 +11,11 @@ function getTemplates($dir){
 
         if ($json){
             if (!isset($json['desc'])) $json['desc'] = ""; 
+            if (isset($json['tags'])){
+                foreach ($json['tags'] as $tag){
+                    $tags[$tag] = true;
+                }
+            }
 
             if (!isset($json['img']) && isset($json['image'])){
                 $json['img'] = $json['image']; 
@@ -19,5 +25,5 @@ function getTemplates($dir){
             $templates[] = $json;
         }
     }
-    return $templates;
+    return array ('templates' => $templates, 'tags' => $tags);
 }
