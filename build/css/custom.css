@@ -84,3 +84,8 @@
     	margin-top:10px;
     }
 }
+.navbar-nav .dropdown-menu {
+    position: absolute !important;
+    left: unset;
+    right: 0;
+}

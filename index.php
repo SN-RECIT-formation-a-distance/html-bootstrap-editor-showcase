@@ -1,50 +1,70 @@
 <?php
+require_once("lang.php");
+$lang = "en";
+if (isset($argv[1]) && isset($langs[$argv[1]])){
+  $lang = $argv[1];
+}
+$strings = $langs[$lang]['strings'];
 require_once("functions.php");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SHOWCASE</title>
+	<title><?php echo $strings['showcase']; ?></title>
 	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
-  <link rel="stylesheet" href="./fontawesome/css/all.min.css">
-  <link rel="icon" type="image/png" href="./image229.png">
-  <script src="./js/jquery-3.1.1.slim.min.js" ></script>
-  <script src="./js/popper.min.js"></script>
-  <script src="./js/bootstrap.min.js" ></script>
-	<link rel="stylesheet" type="text/css" href="./css/custom.css">
-  	<script src="./js/vitrine.js"></script>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../fontawesome/css/all.min.css">
+  <link rel="icon" type="image/png" href="../image229.png">
+  <script src="../js/jquery-3.1.1.slim.min.js" ></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap.min.js" ></script>
+	<link rel="stylesheet" type="text/css" href="../css/custom.css">
+  <script src="../js/vitrine.js"></script>
 </head>
 <body>
-      <div class="jumbotron basic-pale-row text_box3 bg-white"></div>
-      <h1 class="display-4">
-      </h1>
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="./image229.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        </a>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <?php echo $langs[$lang]['name']; ?>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <?php foreach($langs as $k => $v){ ?>
+                  <a class="dropdown-item" href="<?php echo '../'.$k.'/'; ?>"><?php echo $v['name']; ?></a>
+              <?php } ?>
+              </div>
+            </li>
+          </ul>
+      </nav>
       <h1 class="display-4" style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0.5rem; font-family: Viga, sans-serif; font-weight: 300; line-height: 1.2; color: rgb(55, 58, 60); font-size: 3.5rem; text-transform: uppercase; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
-          Templates Showcase
+      <?php echo $strings['templateshowcase']; ?>
       </h1>
       <p class="lead text-center">
-          for HTML Editor
+      <?php echo $strings['foreditor']; ?>
       </p>
       <hr class="my-4">
   </div>
 	<div class="main-section">
   
 <div class="form-outline search-group">
-  <input type="search" id="search" class="form-control" placeholder="Search" aria-label="Search" />
+  <input type="search" id="search" class="form-control" placeholder="<?php echo $strings['search']; ?>" aria-label="<?php echo $strings['search']; ?>" />
 </div>
         <?php
         $count = 0;
-        foreach(getTemplates("templates") as $tpl):
+        foreach(getTemplates("templates/".$lang) as $tpl):
                 if (!$count%4){
                     echo '<div class="row mt-3 mt-center">'; 
                 } ?>
                         <div class="col-tpl">
                             <div class="document-list">
-                                <div class="tile" href="#" file="<?php echo $tpl['file']; ?>" title="<?php echo $tpl['name']; ?>" desc="<?php echo $tpl['desc']; ?>">
+                                <div class="tile" href="#" file="<?php echo $tpl['file']; ?>" import="<?php echo $strings['import']; ?>" title="<?php echo $tpl['name']; ?>" desc="<?php echo $tpl['desc']; ?>">
                                   <div class="imgcontainer">
                                     <img src="<?php echo $tpl['img']; ?>">
                                   </div>
