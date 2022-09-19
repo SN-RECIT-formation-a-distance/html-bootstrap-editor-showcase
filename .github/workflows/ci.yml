@@ -15,8 +15,6 @@ jobs:
           mkdir build/fr build/en
           php index.php en > build/en/index.html
           php index.php fr > build/fr/index.html
-          php components.php > build/components.json
-          mv components build
           mv templates build
 
       - name: Deploy 🚀
