@@ -17,19 +17,19 @@ $data = getTemplates("templates/".$lang);
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../fontawesome/css/all.min.css">
-  <link rel="icon" type="image/png" href="../image229.png">
-  <script src="../js/jquery-3.1.1.slim.min.js" ></script>
-  <script src="../js/popper.min.js"></script>
-  <script src="../js/bootstrap.min.js" ></script>
-	<link rel="stylesheet" type="text/css" href="../css/custom.css">
-  <script src="../js/vitrine.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="icon" type="image/png" href="image229.png">
+  <script src="js/jquery-3.1.1.slim.min.js" ></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js" ></script>
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+  <script src="js/vitrine.js"></script>
 </head>
 <body>
       <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
-          <img src="../image229.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          <img src="image229.png" width="30" height="30" class="d-inline-block align-top" alt="">
         </a>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
@@ -38,7 +38,7 @@ $data = getTemplates("templates/".$lang);
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <?php foreach($langs as $k => $v){ ?>
-                  <a class="dropdown-item" href="<?php echo '../'.$k.'/'; ?>"><?php echo $v['name']; ?></a>
+                  <a class="dropdown-item" href="<?php echo ''.$k.'/'; ?>"><?php echo $v['name']; ?></a>
               <?php } ?>
               </div>
             </li>

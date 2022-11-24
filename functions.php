@@ -21,7 +21,7 @@ function getTemplates($dir){
                 $json['img'] = $json['image']; 
             } 
 
-            $json['file'] = "../".$dir."/".urlencode($f);
+            $json['file'] = "".$dir."/".urlencode($f);
             $templates[] = $json;
         }
     }
