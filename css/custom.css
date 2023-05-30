@@ -16,11 +16,10 @@
 }
 
 .document-list {
-	border: 1px solid #dee2e6;
 	height: 100%;
 }
 
-.document-list:hover {
+.document-list .card:hover {
 	border: 1px solid #000;
 }
 
