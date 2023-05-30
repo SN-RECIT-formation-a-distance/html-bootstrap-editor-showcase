@@ -48,6 +48,7 @@
 .col-tpl {
 	max-width: 330px;
 	margin: 0.5rem;
+	cursor: pointer;
 }
 
 .mt-center {
