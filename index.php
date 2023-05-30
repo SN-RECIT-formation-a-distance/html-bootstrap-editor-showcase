@@ -69,13 +69,12 @@ $data = getTemplates(["templates/".$lang, "templates/common"]);
                 } ?>
                         <div class="col-tpl">
                             <div class="document-list">
-                                <div class="tile" href="#" file="<?php echo $tpl['file']; ?>" import="<?php echo $strings['import']; ?>" title="<?php echo $tpl['name']; ?>" desc="<?php echo $tpl['desc']; ?>">
-                                  <div class="imgcontainer">
-                                    <img src="<?php echo $tpl['img']; ?>">
-                                  </div>
-                                  <div class="bg-item-title">
-                                      <p class="title"><?php echo $tpl['name']; ?></p>
-                                      <p class="tags">
+                                <div class="tile card h-100" href="#" file="<?php echo $tpl['file']; ?>" import="<?php echo $strings['import']; ?>" title="<?php echo $tpl['name']; ?>" desc="<?php echo $tpl['desc']; ?>">
+                                  <img src="<?php echo $tpl['img']; ?>" class="card-img-top">
+                                  <div class="card-body p-0"></div>
+                                  <div class="bg-item-title card-footer">
+                                      <div class="title"><?php echo $tpl['name']; ?></div>
+                                      <div class="tags">
                                         <?php
                                         if (isset($tpl['tags'])){
                                           foreach ($tpl['tags'] as $tag){
@@ -83,7 +82,7 @@ $data = getTemplates(["templates/".$lang, "templates/common"]);
                                           } 
                                         }
                                         ?>
-                                      </p>
+                                      </div>
                                   </div>
                                 </div>
                             </div>
