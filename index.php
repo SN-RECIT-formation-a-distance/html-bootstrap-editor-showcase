@@ -6,7 +6,7 @@ if (isset($argv[1]) && isset($langs[$argv[1]])){
 }
 $strings = $langs[$lang]['strings'];
 require_once("functions.php");
-$data = getTemplates("templates/".$lang);
+$data = getTemplates(["templates/".$lang, "templates/common"]);
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,7 +30,11 @@ $data = getTemplates("templates/".$lang);
       <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
           <img src="../image229.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          <?php echo $strings['templateshowcase']; ?>
         </a>
+          <div class="form-outline search-group">
+            <input type="search" id="search" class="form-control" placeholder="<?php echo $strings['search']; ?>" aria-label="<?php echo $strings['search']; ?>" />
+          </div>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,19 +48,17 @@ $data = getTemplates("templates/".$lang);
             </li>
           </ul>
       </nav>
-      <h1 class="display-4" style="box-sizing: border-box; margin-top: 0px; margin-bottom: 0.5rem; font-family: Viga, sans-serif; font-weight: 300; line-height: 1.2; color: rgb(55, 58, 60); font-size: 3.5rem; text-transform: uppercase; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">
-      <?php echo $strings['templateshowcase']; ?>
-      </h1>
-      <p class="lead text-center">
-      <?php echo $strings['foreditor']; ?>
-      </p>
+      <div class="d-flex justify-content-center mt-3">
+        <?php
+        foreach($data['tags'] as $tag => $v){
+          echo '<span class="badge badge-primary badgefilter m-1">'.$tag.'</span> ';
+        } ?>
+
+      </div>
       <hr class="my-4">
   </div>
 	<div class="main-section">
   
-<div class="form-outline search-group">
-  <input type="search" id="search" class="form-control" placeholder="<?php echo $strings['search']; ?>" aria-label="<?php echo $strings['search']; ?>" />
-</div>
         <?php
         $count = 0;
         foreach($data['templates'] as $tpl):

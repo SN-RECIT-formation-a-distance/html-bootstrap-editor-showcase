@@ -12,18 +12,40 @@ $(document).ready(function(){
     })
 
     $('#search').on('input',function(){
-        var val = $('#search').val().toLowerCase();
-        $('.col-tpl').each(function(e){
-            var title = $('.title', this).text().toLowerCase();
-            var tags = $('.tags', this).text().toLowerCase();
-            if (val.length > 0 && !title.includes(val) && !tags.includes(val)){
-                $(this).hide();
-            }else{
-                $(this).show();
-            }
-        })
+        searchTpl()
+    })
+    
+    $('.badgefilter').click(function(){
+        if($(this).hasClass('selected')){
+            $(this).removeClass('selected')
+        }else{
+            $('.badgefilter').removeClass('selected')
+            $(this).addClass('selected')
+        }
+        searchTpl()
     })
 });
+
+function searchTpl(){
+    var val = $('#search').val().toLowerCase();
+    var tag = $('.badgefilter.selected')
+    var tagfilter = ''
+    if (tag){
+        tagfilter = tag.text().toLowerCase();
+    }
+    $('.col-tpl').each(function(e){
+        var title = $('.title', this).text().toLowerCase();
+        var tags = $('.tags', this).text().toLowerCase();
+        if (val.length > 0 && !title.includes(val) && !tags.includes(val)){
+            $(this).hide();
+        }else if (tagfilter.length > 0 && !tags.includes(tagfilter)){
+            $(this).hide();
+        }else{
+            $(this).show();
+        }
+    });
+
+}
 
 function importTemplate(url){
     $.ajax({
