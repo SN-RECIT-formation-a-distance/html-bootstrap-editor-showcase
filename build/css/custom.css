@@ -60,15 +60,7 @@
 }
 
 .badgefilter.selected {
-	background-color: crimson;
-}
-.navbar-light .navbar-nav .nav-link {
-    color: rgba(0,0,0,1) !important;
-}
-
-.search-group {
-	max-width: 50%;
-	margin: auto;
+	background-color: #007bff;
 }
 
 .tile {

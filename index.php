@@ -27,12 +27,13 @@ $data = getTemplates(["templates/".$lang, "templates/common"]);
   <script src="../js/vitrine.js"></script>
 </head>
 <body>
-      <nav class="navbar navbar-light bg-light">
+      <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
           <img src="../image229.png" width="30" height="30" class="d-inline-block align-top" alt="">
           <?php echo $strings['templateshowcase']; ?>
         </a>
-          <div class="form-outline search-group">
+        <div class="d-flex">
+          <div class="form-outline search-group mr-3">
             <input type="search" id="search" class="form-control" placeholder="<?php echo $strings['search']; ?>" aria-label="<?php echo $strings['search']; ?>" />
           </div>
           <ul class="navbar-nav">
@@ -47,11 +48,12 @@ $data = getTemplates(["templates/".$lang, "templates/common"]);
               </div>
             </li>
           </ul>
+        </div>
       </nav>
       <div class="d-flex justify-content-center mt-3">
         <?php
         foreach($data['tags'] as $tag => $v){
-          echo '<span class="badge badge-primary badgefilter m-1">'.$tag.'</span> ';
+          echo '<span class="badge badge-secondary badgefilter m-1">'.$tag.'</span> ';
         } ?>
 
       </div>

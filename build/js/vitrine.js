@@ -19,7 +19,6 @@ $(document).ready(function(){
         if($(this).hasClass('selected')){
             $(this).removeClass('selected')
         }else{
-            $('.badgefilter').removeClass('selected')
             $(this).addClass('selected')
         }
         searchTpl()
@@ -28,23 +27,32 @@ $(document).ready(function(){
 
 function searchTpl(){
     var val = $('#search').val().toLowerCase();
-    var tag = $('.badgefilter.selected')
-    var tagfilter = ''
-    if (tag){
-        tagfilter = tag.text().toLowerCase();
+    var tag = document.querySelectorAll('.badgefilter.selected')
+    var tagfilter = []
+    for (var t of tag){
+        tagfilter.push(t.innerHTML.toLowerCase());
     }
     $('.col-tpl').each(function(e){
         var title = $('.title', this).text().toLowerCase();
         var tags = $('.tags', this).text().toLowerCase();
         if (val.length > 0 && !title.includes(val) && !tags.includes(val)){
             $(this).hide();
-        }else if (tagfilter.length > 0 && !tags.includes(tagfilter)){
+        }else if (tagfilter.length > 0 && !includesStrList(tags, tagfilter)){
             $(this).hide();
         }else{
             $(this).show();
         }
     });
 
+}
+
+function includesStrList(str, list){
+    for (var s of list){
+        if (str.includes(s)){
+            return true;
+        }
+    }
+    return false;
 }
 
 function importTemplate(url){
