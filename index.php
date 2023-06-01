@@ -6,7 +6,7 @@ if (isset($argv[1]) && isset($langs[$argv[1]])){
 }
 $strings = $langs[$lang]['strings'];
 require_once("functions.php");
-$data = getTemplates(["templates/".$lang, "templates/common"]);
+$data = getTemplates([ "templates/common","templates/".$lang]);
 ?>
 <!DOCTYPE html>
 <html>
