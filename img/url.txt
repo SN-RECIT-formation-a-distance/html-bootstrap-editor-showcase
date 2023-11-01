@@ -14,3 +14,7 @@ https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/i
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/Wikipedia.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/wooclap.png
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/wooclap_logo.png
+https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/magnifying-glass.png
+https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/biology.png
+https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/bg_biology.jpg
+
