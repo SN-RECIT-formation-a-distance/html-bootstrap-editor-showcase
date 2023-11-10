@@ -13,3 +13,6 @@ https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/i
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/univers_materiel.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/univers_technologique.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/univers_terre_espace.jpg
+https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/cactus.jpg
+https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/perroquet.jpg
+https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/castor.jpg
