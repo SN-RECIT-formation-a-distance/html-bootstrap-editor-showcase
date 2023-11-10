@@ -1,3 +1,4 @@
+https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/microscope.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/5feuille.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/univers_vivant.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci03121/pinson.jpg
@@ -5,7 +6,7 @@ https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/i
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/3lac.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/4autumn.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/univers_vivant_cible.jpg
-https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/6microscope.jpg
+https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/6organismes.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/hypothese_batracien.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/science_section_0.jpg
 https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/tortue.jpg
