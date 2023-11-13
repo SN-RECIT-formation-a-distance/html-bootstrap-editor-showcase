@@ -1,1 +1,0 @@
-dir /b /o:-g > 0filelist.txt
