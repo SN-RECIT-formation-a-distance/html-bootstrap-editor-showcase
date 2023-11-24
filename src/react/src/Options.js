@@ -13,7 +13,7 @@ export class Options
 
     static getGateway(){
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-            return 'http://devserver/shared/new-showcase/WebApi.php';
+            return 'http://devserver/shared/new-showcase/templates/';
         }
         else{
             return 'https://sn-recit-formation-a-distance.github.io/new-showcase/WebApi.php';
