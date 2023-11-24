@@ -1,4 +1,0 @@
-<?php
-
-die("test docs");
-?>
