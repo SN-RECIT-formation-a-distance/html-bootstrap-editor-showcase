@@ -6,13 +6,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style.scss';
 
 import { MainView } from './view/MainView';
+import Utils from './libs/utils/Utils';
 
 class HtmlBootstrapEditorShowcaseApp extends Component{
+  static defaultProps = {
+    showCloseButton: false
+  };
+
   render(){
-    let main = <MainView/>;
+    let main = <MainView showCloseButton={this.props.showCloseButton}/>;
     return main;
   }
 }
 
+let urlVars = Utils.getUrlVars();
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<HtmlBootstrapEditorShowcaseApp/>);
+root.render(<HtmlBootstrapEditorShowcaseApp showCloseButton={urlVars.close.toString() === '1'}/>);

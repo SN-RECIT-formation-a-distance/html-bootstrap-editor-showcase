@@ -4,6 +4,7 @@ import { $glVars } from '../common/common';
 import { ToggleButtons } from '../libs/components/ToggleButtons';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Assets } from '../assets/Assets';
 
 
 export class GenericTemplate extends Component{
@@ -36,7 +37,7 @@ export class GenericTemplate extends Component{
                         <div className="row-fluid flex-md-row d-flex justify-content-center align-items-center" >
                             <div className="col-8 col-md-4" >
                                 <div className="mb-0 text-center">
-                                    <img src="https://ena.recitfad.com/draftfile.php/17219/user/draft/20843757/bootstrap.jpg" alt='Bootstrap logo' className="img-fluid rounded shadow" />
+                                    <img src={Assets.BootstrapLogo} alt='Bootstrap logo' className="img-fluid rounded shadow" />
                                 </div>
                             </div>
                             <div className="col-md-8" >
@@ -55,9 +56,12 @@ export class GenericTemplate extends Component{
                 </div>
             </section>;
 
-        let details = <CollectionDetails data={this.state.details}/>;
-
-        return (this.state.details !== null ? details : main);
+        if(this.state.details !== null){
+            return <CollectionDetails data={this.state.details} nameAlt={`Gabarits génériques ${this.state.details.name}`}/>;
+        }
+        else{
+            return main;
+        }
     }
 
     onDetails(data){
@@ -159,33 +163,68 @@ export class SpecificTemplate extends Component{
 
 export class CollectionDetails extends Component{
     static defaultProps = {
+        nameAlt: "",
         data: null
     };
 
     constructor(props){
         super(props);
 
+        this.onFilter = this.onFilter.bind(this);
         this.onClick = this.onClick.bind(this);
 
-        this.state = {selectedItem: null};
+        this.state = {selectedItem: null, filter: {tags: [], queryStr: ""}};
     }
 
     render(){
         if(this.props.data === null){ return null; }
 
+        let that = this;
+        let dataProvider = this.props.data.items;
+
+        if(this.state.filter.tags.length > 0){
+            dataProvider = dataProvider.filter((item) => {
+                for(let tag of that.state.filter.tags){
+                    if(item.tags.includes(tag)){
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
+        if($glVars.queryStr.length > 0){
+            dataProvider = dataProvider.filter((item) => {
+                let result = (item.name.toLowerCase().includes($glVars.queryStr.toLocaleLowerCase()));
+                if(result){
+                    return true;
+                }
+
+                for(let tag of item.tags){
+                    if(tag.toLowerCase().includes($glVars.queryStr.toLocaleLowerCase())){
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        }
+
         let main =
-        <div>
-            <h1 className="display-4">{this.props.data.name}</h1>
+        <div className='m-3'>
+            <h1 className="display-4">{(this.props.nameAlt.length > 0 ? this.props.nameAlt : this.props.data.name)}</h1>
             
             <div className="d-flex justify-content-center mt-3">
                 {this.props.data.tags.map((item, index) => {  
-                    return (<span key={index} className="badge badge-secondary m-1">{item}</span> );
+                    let variant = (this.state.filter.tags.includes(item) ? 'badge-primary' : 'badge-secondary');
+                    return (<span onClick={() => this.onFilter(item)} key={index} className={`badge ${variant} m-1 p-2`} style={{cursor: 'pointer'}}>{item}</span> );
                 })}
             </div>
             <hr className="my-4"/>
 
             <div className='d-flex flex-wrap'>
-                {this.props.data.items.map((item, index) => {  
+                {dataProvider.length === 0 && <b>Il n'y a pas de résultat pour les critères sélectionnés.</b>}
+                {dataProvider.map((item, index) => {  
                     let result =
                         <Card key={index} style={{ width: '15rem' }} className='clickable m-2 text-center' onClick={() => this.onClick(item)}>
                             <div style={{height: 140}}>
@@ -206,14 +245,25 @@ export class CollectionDetails extends Component{
             <ModalTemplate data={this.state.selectedItem} onClose={() => this.setState({selectedItem: null})}/>
         </div>;
 
-      /*  let modal = 
-        */
-
         return main;
     }
 
     onClick(data){
         this.setState({selectedItem: data});
+    }
+
+    onFilter(tag){
+        let filter = Object.assign(this.state.filter, {});
+
+        if(this.state.filter.tags.includes(tag)){
+            let index = filter.tags.indexOf(tag);
+            filter.tags.splice(index, 1);
+        }
+        else{
+            filter.tags.push(tag);
+        }
+
+        this.setState({filter: filter});
     }
 }
 
@@ -251,9 +301,7 @@ export class ModalTemplate extends Component{
     }
 
     onImport(){
-        $glVars.webApi.getFileToImport(this.props.data.filePath, (result) => {
-            window.parent.postMessage({ message: "import", value: result.data }, "*");
-        });
+        window.parent.postMessage({ message: "import", value: this.props.data }, "*");
     }
 }
 

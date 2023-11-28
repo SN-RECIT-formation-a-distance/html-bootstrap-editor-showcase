@@ -5,5 +5,6 @@ import { WebApi } from "./WebApi";
 export const $glVars = {
   i18n: new I18n(),
   data: null,
-  webApi: new WebApi()
+  webApi: new WebApi(),
+  queryStr: ""
 }

@@ -35,6 +35,6 @@ export class WebApi extends AWebApi
     }
 
     getTemplates(onSuccess){
-        this.post(`${this.gateway}templates/data.json`, null, onSuccess);
+        this.post(`${this.gateway}data.json`, null, onSuccess);
     }
 };
