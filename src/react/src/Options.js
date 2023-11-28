@@ -16,7 +16,7 @@ export class Options
             return 'http://devserver/shared/new-showcase/templates/';
         }
         else{
-            return 'https://sn-recit-formation-a-distance.github.io/new-showcase/WebApi.php';
+            return 'https://sn-recit-formation-a-distance.github.io/new-showcase/';
         }
     }
 }

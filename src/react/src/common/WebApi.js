@@ -28,11 +28,6 @@ export class WebApi extends AWebApi
             }
         }
     }
-    
-    getFileToImport(filePath, onSuccess){
-        let data = {filePath: filePath, service: "getFileToImport"};
-        this.post(this.gateway, data, onSuccess);
-    }
 
     getTemplates(onSuccess){
         this.post(`${this.gateway}data.json`, null, onSuccess);

@@ -172,11 +172,9 @@ export default class Utils{
         return "$ " + parseFloat(value).toFixed(2);
     }
 
-    static getUrlVars(){
-        var vars, uri;
+    static getUrlVars(vars){
+        let uri;
 
-        vars = {};
-    
         uri = decodeURI(window.location.href);
     
         uri.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
