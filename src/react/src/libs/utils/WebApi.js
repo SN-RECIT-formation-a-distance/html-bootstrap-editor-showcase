@@ -153,6 +153,19 @@ export class WebApi
         this.http.send("post", url, data, callbackSuccess, callbackError, this.onComplete, HttpRequest.contentType.json, HttpRequest.responseType.json);
     }
 
+    get(url, data, callbackSuccess, callbackError, showFeedback){
+        showFeedback = (typeof showFeedback === 'undefined' ? true : showFeedback);
+        
+        if(showFeedback){
+            this.showLoadingFeedback();
+        }
+        
+        callbackError = callbackError || this.onError;
+        data = JSON.stringify(data);
+
+        this.http.send("get", url, data, callbackSuccess, callbackError, this.onComplete, HttpRequest.contentType.json, HttpRequest.responseType.json);
+    }
+
     onComplete(){
         this.hideLoadingFeedback();
     }
