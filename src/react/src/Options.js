@@ -13,8 +13,8 @@ export class Options
 
     static getGateway(){
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') { 
-            return 'http://devserver/shared/new-showcase/templates/';
-        }
+            return 'http://devserver/shared/new-showcase/react/build/'; 
+        } 
         else{
             return 'https://sn-recit-formation-a-distance.github.io/new-showcase/';
         }

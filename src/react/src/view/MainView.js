@@ -1,11 +1,12 @@
 import React, { Component }  from 'react';
 import { Navbar, Nav, NavDropdown, Form, InputGroup, FormControl, Button} from 'react-bootstrap';
-import {faHome,  faSearch, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import {faHome,  faSearch, faSpinner, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Options } from '../Options';
 import {$glVars} from "../common/common";
 import {Assets} from "../assets/Assets";
 import { GenericTemplate, SpecificTemplate } from './views';
+import { Loading } from '../libs/components/components'; 
 
 export class MainView extends Component{
   static defaultProps = {
@@ -37,6 +38,8 @@ export class MainView extends Component{
       $glVars.data = result;
       that.forceUpdate();
     });
+
+    $glVars.i18n.setLang(this.state.lang);
   }
 
   render(){
@@ -57,7 +60,7 @@ export class MainView extends Component{
                 <Nav >
                   <Form inline>
                     <InputGroup>
-                      <FormControl type="text" placeholder="Search" onChange={this.onSearch} disabled={(this.state.view === 'home')} />
+                      <FormControl type="text" placeholder={$glVars.i18n.tags.search} onChange={this.onSearch} disabled={(this.state.view === 'home')} />
                         <InputGroup.Prepend>
                           <InputGroup.Text><FontAwesomeIcon icon={faSearch} title={$glVars.i18n.tags.search}/></InputGroup.Text>
                         </InputGroup.Prepend>
@@ -72,7 +75,7 @@ export class MainView extends Component{
 
                   {this.props.showCloseButton && 
                     <Nav className='ml-5'> 
-                      <Nav.Link eventKey="exit"><FontAwesomeIcon icon={faTimesCircle} title={$glVars.i18n.tags.exit}/></Nav.Link>
+                      <Nav.Link eventKey="exit" title={$glVars.i18n.tags.exit}><FontAwesomeIcon icon={faTimesCircle} title={$glVars.i18n.tags.exit}/></Nav.Link>
                     </Nav>
                   }
                 </Nav>
@@ -80,6 +83,7 @@ export class MainView extends Component{
         </Navbar>
         {['home', 'generic'].includes(this.state.view) && <GenericTemplate view={this.state.view} onDetails={this.onNavbarSelect}/>}
         {['home', 'specific'].includes(this.state.view) && <SpecificTemplate view={this.state.view} onDetails={this.onNavbarSelect}/>}
+        <Loading webApi={$glVars.webApi}><FontAwesomeIcon icon={faSpinner} pulse/></Loading>
     </div>;
 
     return main; 
@@ -92,7 +96,9 @@ export class MainView extends Component{
       case 'specific':
         this.setState({view: eventKey});
         break;
-      case Object.keys(this.languageList).includes(eventKey):
+      case 'en':
+      case 'fr':
+        $glVars.i18n.setLang(eventKey);
         this.setState({lang: eventKey});
         break;
       case 'exit':

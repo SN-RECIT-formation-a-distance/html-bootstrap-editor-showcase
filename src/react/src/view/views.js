@@ -42,8 +42,8 @@ export class GenericTemplate extends Component{
                             </div>
                             <div className="col-md-8" >
                                 <div className="mb-0 text-center">
-                                    <h1 className="display-4" >Gabarits génériques</h1>
-                                    <p >Les <strong >gabarits génériques</strong>&nbsp;mettent à profit les classes <strong >Bootstrap 4</strong> qui facilitent la création à partir d'une mise en page constituée <strong >d'images,&nbsp;</strong>de<strong> textes Lorem, de vidéo, etc</strong>.</p>
+                                    <h1 className="display-4" >{$glVars.i18n.tags.genericTemplates}</h1>
+                                    <p  dangerouslySetInnerHTML={{__html: $glVars.i18n.tags.genericTemplatesText}}></p>
                                     <hr className="my-4" align="center" width="50%" />
 
                                     {$glVars.data.generic.map((item, index) => {  
@@ -57,7 +57,7 @@ export class GenericTemplate extends Component{
             </section>;
 
         if(this.state.details !== null){
-            return <CollectionDetails data={this.state.details} nameAlt={`Gabarits génériques ${this.state.details.name}`}/>;
+            return <CollectionDetails data={this.state.details} nameAlt={`${$glVars.i18n.tags.genericTemplates} ${this.state.details.name}`}/>;
         }
         else{
             return main;
@@ -83,14 +83,10 @@ export class SpecificTemplate extends Component{
 
       this.state = {
         details: null, 
-        queryStr: [''], 
-        dropdownLists: {
-            filterList: [
-                {text: 'Anglais', value: 'en'},
-                {text: 'Français', value: 'fr'}
-            ]
-            }
+        queryStr: [''],         
         };
+
+        this.dropdownFilterList = []
     } 
 
     componentDidUpdate(prevProps){
@@ -101,6 +97,11 @@ export class SpecificTemplate extends Component{
 
     render(){
         if($glVars.data === null){ return null; }
+
+        this.dropdownFilterList = [
+            {text: $glVars.i18n.tags.english, value: 'en'},
+            {text: $glVars.i18n.tags.french, value: 'fr'}
+        ]
 
         let dataProvider = $glVars.data.specific;
 
@@ -120,11 +121,11 @@ export class SpecificTemplate extends Component{
 
         let main =
         <section className="text-center">
-            <h1 className="display-4 text-center pt-5">Collections de modèles</h1>
-            <p className="lead text-center" >Chaque collection offre plusieurs gabarits modèles qui sont réunis en fonction d'un contexte, d'un style, d'une clientèle, etc.</p>
+            <h1 className="display-4 text-center pt-5">{$glVars.i18n.tags.modelCollections}</h1>
+            <p className="lead text-center" >{$glVars.i18n.tags.modelCollectionsText}</p>
             <div className="d-flex justify-content-center align-items-center d-inline-flex rounded border">
                 <ToggleButtons  name="filter" defaultValue={this.state.queryStr} type="checkbox" onChange={this.onFilterChange} 
-                                                    options={this.state.dropdownLists.filterList}/>  
+                                                    options={this.dropdownFilterList}/>  
             </div>
             <Carousel>
                 {dataProvider.map((items, index) => {  
@@ -223,7 +224,7 @@ export class CollectionDetails extends Component{
             <hr className="my-4"/>
 
             <div className='d-flex flex-wrap'>
-                {dataProvider.length === 0 && <b>Il n'y a pas de résultat pour les critères sélectionnés.</b>}
+                {dataProvider.length === 0 && <b>{$glVars.i18n.tags.noResults}</b>}
                 {dataProvider.map((item, index) => {  
                     let result =
                         <Card key={index} style={{ width: '15rem' }} className='clickable m-2 text-center' onClick={() => this.onClick(item)}>
@@ -323,7 +324,7 @@ export class CarouselCard extends Component{
                     <h3>{this.props.data.name}</h3>
                 </div>
                 <div className="card-footer border-0 mb-0">
-                    <Button onClick={() => this.props.onDetails(this.props.data)}>Accéder</Button>
+                    <Button onClick={() => this.props.onDetails(this.props.data)}>{$glVars.i18n.tags.access}</Button>
                 </div>
             </div>;
 

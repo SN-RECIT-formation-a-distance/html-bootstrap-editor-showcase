@@ -19,6 +19,8 @@ class HtmlBootstrapEditorShowcaseApp extends Component{
   }
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
 let urlVars = Utils.getUrlVars({close: '0'});
-root.render(<HtmlBootstrapEditorShowcaseApp showCloseButton={urlVars.close.toString() === '1'}/>);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(<HtmlBootstrapEditorShowcaseApp showCloseButton={urlVars.close.toString() === '1'}/>); 
