@@ -2,6 +2,6 @@
     "name": "Anglais",
     "lang": "en",
     "description": "",
-    "img": "",
+    "img":  "./assets/bootstrap.jpg",
     "type": "generic"
 }

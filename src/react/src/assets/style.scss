@@ -1,3 +1,9 @@
 .clickable:hover{
     box-shadow: 2px 2px 2px rgba(0,0,0,.2); cursor: pointer;
 }
+
+.carousel{
+    .carousel-indicators{
+        li{background-color: #0f6cbf!important;} // bg-primary
+    }
+}

@@ -10,14 +10,12 @@ import { Loading } from '../libs/components/components';
 
 export class MainView extends Component{
   static defaultProps = {
-    showCloseButton: false
   };
 
   constructor(props){
     super(props);
 
     this.onNavbarSelect = this.onNavbarSelect.bind(this);
-    this.onSearch = this.onSearch.bind(this);
 
     this.state = {
       view: 'home', // home, generic, specific
@@ -43,53 +41,28 @@ export class MainView extends Component{
   }
 
   render(){
+    let that = this;
     let main = 
     <div>                
-        <Navbar bg="dark" variant="dark" onSelect={this.onNavbarSelect} expand="sm">
-            <Navbar.Brand>
-                <img alt="RÉCIT" src={Assets.RecitLogo} width="30" height="30" className="d-inline-block align-top" />{' '}
-                {$glVars.i18n.tags.appName}
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav>
-                    <Nav.Link eventKey="home"><FontAwesomeIcon icon={faHome} title={$glVars.i18n.tags.home}/></Nav.Link>
-                </Nav>
-                
-                <Nav className="mr-auto"></Nav>
-                <Nav >
-                  <Form inline>
-                    <InputGroup>
-                      <FormControl type="text" placeholder={$glVars.i18n.tags.search} onChange={this.onSearch} disabled={(this.state.view === 'home')} />
-                        <InputGroup.Prepend>
-                          <InputGroup.Text><FontAwesomeIcon icon={faSearch} title={$glVars.i18n.tags.search}/></InputGroup.Text>
-                        </InputGroup.Prepend>
-                      </InputGroup>
-                  </Form>
-
-                  <NavDropdown className='ml-5' title={this.languageList[this.state.lang]} id="nav-dropdown-language">
-                   {Object.entries(this.languageList).map((item, index) => {  
-                      return (<NavDropdown.Item eventKey={item[0]} key={index}>{item[1]}</NavDropdown.Item>);
-                    })}
-                  </NavDropdown>
-
-                  {this.props.showCloseButton && 
-                    <Nav className='ml-5'> 
-                      <Nav.Link eventKey="exit" title={$glVars.i18n.tags.exit}><FontAwesomeIcon icon={faTimesCircle} title={$glVars.i18n.tags.exit}/></Nav.Link>
-                    </Nav>
-                  }
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
         {['home', 'generic'].includes(this.state.view) && <GenericTemplate view={this.state.view} onDetails={this.onNavbarSelect}/>}
+
         {['home', 'specific'].includes(this.state.view) && <SpecificTemplate view={this.state.view} onDetails={this.onNavbarSelect}/>}
+
         <Loading webApi={$glVars.webApi}><FontAwesomeIcon icon={faSpinner} pulse/></Loading>
+
+        <footer style={{position: "fixed", bottom: 0}} className='bg-dark w-100  text-white d-flex justify-content-center align-items-center'>
+          <span>Veuillez sélectionner la langue de votre choix: </span>
+          {Object.entries(this.languageList).map((item, index) => {  
+              let selected = (this.state.lang === item[0] ? {textDecoration: 'underline'} : null);
+              return (<Button className='text-white' style={selected}  key={index} variant='link' onClick={() => this.onNavbarSelect(item[0])}>{item[1]}</Button>);
+          })}
+        </footer>
     </div>;
 
     return main; 
   }
 
-  onNavbarSelect(eventKey){
+  onNavbarSelect(eventKey){ 
     switch(eventKey){
       case 'home':
       case 'generic':
@@ -101,16 +74,10 @@ export class MainView extends Component{
         $glVars.i18n.setLang(eventKey);
         this.setState({lang: eventKey});
         break;
-      case 'exit':
-        window.parent.postMessage({ message: "showcase-exit" }, "*");
-        break;
       default:
         break;
     }
   }
 
-  onSearch(event){
-    $glVars.queryStr = event.target.value;
-    this.forceUpdate();
-  }
+  
 }

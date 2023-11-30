@@ -1,8 +1,8 @@
 import React, { Component }  from 'react';
-import { Button, Card, Carousel, Modal } from 'react-bootstrap';
+import { Button, Card, Carousel, Form, FormControl, InputGroup, Modal } from 'react-bootstrap';
 import { $glVars } from '../common/common';
 import { ToggleButtons } from '../libs/components/ToggleButtons';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft, faArrowCircleRight, faArrowLeft, faDownload, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Assets } from '../assets/Assets';
 
@@ -16,6 +16,7 @@ export class GenericTemplate extends Component{
     constructor(props){
       super(props);
 
+      this.onBack = this.onBack.bind(this);
       this.onDetails = this.onDetails.bind(this);
   
       this.state = {details: null};
@@ -31,14 +32,14 @@ export class GenericTemplate extends Component{
         if($glVars.data === null){ return null; }
 
         let main =
-            <section className="jumbotron rounded-0 m-0">
+            <section className="p-4 rounded-0 m-0 bg-light">
                 <div>
-                    <div className="container-fluid px-md-4 px-lg-5 py-3 py-md-4 py-lg-5" >
+                    <div className="container px-md-4 px-lg-5 py-3 py-md-4 py-lg-5" >
                         <div className="row-fluid flex-md-row d-flex justify-content-center align-items-center" >
                             <div className="col-8 col-md-4" >
                                 <div className="mb-0 text-center">
                                     <img src={Assets.BootstrapLogo} alt='Bootstrap logo' className="img-fluid rounded shadow" />
-                                </div>
+                                </div> 
                             </div>
                             <div className="col-md-8" >
                                 <div className="mb-0 text-center">
@@ -57,7 +58,7 @@ export class GenericTemplate extends Component{
             </section>;
 
         if(this.state.details !== null){
-            return <CollectionDetails data={this.state.details} nameAlt={`${$glVars.i18n.tags.genericTemplates} ${this.state.details.name}`}/>;
+            return <CollectionDetails data={this.state.details} nameAlt={`${$glVars.i18n.tags.genericTemplates} ${this.state.details.name}`} onBack={this.onBack}/>;
         }
         else{
             return main;
@@ -66,6 +67,10 @@ export class GenericTemplate extends Component{
 
     onDetails(data){
         this.setState({details: data}, this.props.onDetails('generic'));
+    }
+
+    onBack(){
+        this.props.onDetails('home')
     }
 }
 
@@ -80,10 +85,11 @@ export class SpecificTemplate extends Component{
   
       this.onDetails = this.onDetails.bind(this);
       this.onFilterChange = this.onFilterChange.bind(this);
+      this.onBack = this.onBack.bind(this);
 
       this.state = {
         details: null, 
-        queryStr: [''],         
+        queryStr: ['all'],         
         };
 
         this.dropdownFilterList = []
@@ -99,6 +105,7 @@ export class SpecificTemplate extends Component{
         if($glVars.data === null){ return null; }
 
         this.dropdownFilterList = [
+            {text: $glVars.i18n.tags.all, value: 'all'},
             {text: $glVars.i18n.tags.english, value: 'en'},
             {text: $glVars.i18n.tags.french, value: 'fr'}
         ]
@@ -108,7 +115,12 @@ export class SpecificTemplate extends Component{
         if(this.state.queryStr.length > 1){
             let that = this;
             dataProvider = dataProvider.filter(function(item){
-                return (that.state.queryStr.includes(item.lang)  ? true : false);
+                if(that.state.queryStr.includes('all')){
+                    return true;
+                }
+                else{
+                    return (that.state.queryStr.includes(item.lang)  ? true : false);
+                }
             })
         }
 
@@ -123,15 +135,19 @@ export class SpecificTemplate extends Component{
         <section className="text-center">
             <h1 className="display-4 text-center pt-5">{$glVars.i18n.tags.modelCollections}</h1>
             <p className="lead text-center" >{$glVars.i18n.tags.modelCollectionsText}</p>
-            <div className="d-flex justify-content-center align-items-center d-inline-flex rounded border">
-                <ToggleButtons  name="filter" defaultValue={this.state.queryStr} type="checkbox" onChange={this.onFilterChange} 
-                                                    options={this.dropdownFilterList}/>  
+
+            <div className="d-inline-flex justify-content-center align-items-center rounded border p-2 ">
+                <ToggleButtons  name="filter" defaultValue={this.state.queryStr} type="radio" onChange={this.onFilterChange} 
+                                                    options={this.dropdownFilterList}/>   
             </div>
-            <Carousel>
+
+            <hr style={{width: 400}}/>
+
+            <Carousel prevIcon={<FontAwesomeIcon icon={faArrowCircleLeft} className='fa-3x text-primary'/>}  nextIcon={<FontAwesomeIcon icon={faArrowCircleRight} className='fa-3x text-primary'/>}>
                 {dataProvider.map((items, index) => {  
                     let result = 
                         <Carousel.Item key={index}>
-                            <div className="container-fluid pb-5">
+                            <div className="container pb-5"> 
                                 <div className="row flex-md-row justify-content-center ">
                                     <div className="col-8 py-2 col-md-4" >
                                         <CarouselCard  data={items[0]} onDetails={this.onDetails}/>
@@ -148,7 +164,7 @@ export class SpecificTemplate extends Component{
             </Carousel>
         </section>;
 
-        let details = <CollectionDetails data={this.state.details}/>;
+        let details = <CollectionDetails data={this.state.details} onBack={this.onBack}/>;
 
         return (this.state.details !== null ? details : main);
     }
@@ -160,17 +176,23 @@ export class SpecificTemplate extends Component{
     onFilterChange(event){
         this.setState({queryStr: event.target.value});
     }
+    
+    onBack(){
+        this.props.onDetails('home')
+    }
 }
 
 export class CollectionDetails extends Component{
     static defaultProps = {
         nameAlt: "",
-        data: null
+        data: null,
+        onBack: null
     };
 
     constructor(props){
         super(props);
 
+        this.onSearch = this.onSearch.bind(this);
         this.onFilter = this.onFilter.bind(this);
         this.onClick = this.onClick.bind(this);
 
@@ -194,15 +216,15 @@ export class CollectionDetails extends Component{
             });
         }
 
-        if($glVars.queryStr.length > 0){
+        if(this.state.filter.queryStr.length > 0){
             dataProvider = dataProvider.filter((item) => {
-                let result = (item.name.toLowerCase().includes($glVars.queryStr.toLocaleLowerCase()));
+                let result = (item.name.toLowerCase().includes(that.state.filter.queryStr.toLocaleLowerCase()));
                 if(result){
                     return true;
                 }
 
                 for(let tag of item.tags){
-                    if(tag.toLowerCase().includes($glVars.queryStr.toLocaleLowerCase())){
+                    if(tag.toLowerCase().includes(that.state.filter.queryStr.toLocaleLowerCase())){
                         return true;
                     }
                 }
@@ -213,7 +235,38 @@ export class CollectionDetails extends Component{
 
         let main =
         <div className='m-3'>
-            <h1 className="display-4">{(this.props.nameAlt.length > 0 ? this.props.nameAlt : this.props.data.name)}</h1>
+            <section className="rounded p-0 mt-2 mb-2">
+                <div className="container-fluid m-0 p-0 bg-light rounded" >
+                    <div className="row flex-column flex-md-row justify-content-center m-0 p-0">
+                        <div className="m-0 p-0 col-sm-auto col">
+                            <div style={{backgroundSize: 'cover', width: '240px'}} className="position-relative">
+                                <div style={{WebkitMaskImage: `url('./img/mask_left.png')`, WebkitMaskSize: "100% 100%", WebkitMaskRepeat: 'no-repeat', WebkitMaskOrigin: "content-box",
+                                        maskImage:  `url('./img/mask_left.png')`, maskSize: "100% 100%", maskRepeat: "no-repeat", maskOrigin: "content-box"}}>
+                                    <img src={this.props.data.img} className="rounded-left img-fluid"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="align-self-center m-0 p-0 col">
+                            <Button size='lg' variant='primary' style={{float: 'right'}} className="m-2" onClick={this.props.onBack}><FontAwesomeIcon icon={faArrowLeft}/>{` ${$glVars.i18n.tags.back}`}</Button>
+                            <div className="card border-0 p-0 m-0"> 
+                                <div className="card-body bg-light text-center" >
+                                    <h3>{(this.props.nameAlt.length > 0 ? this.props.nameAlt : this.props.data.name)}</h3>
+                                    <span dangerouslySetInnerHTML={{__html: this.props.data.description}}></span>
+                                </div>
+                            </div>
+                            <Form style={{width: "60%", margin: "auto"}} className='mb-2 mb-lg-0'> 
+                                <InputGroup> 
+                                    <FormControl type="text" placeholder={$glVars.i18n.tags.search} onChange={this.onSearch} />
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text><FontAwesomeIcon icon={faSearch} title={$glVars.i18n.tags.search}/></InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                </InputGroup>
+                            </Form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             
             <div className="d-flex justify-content-center mt-3">
                 {this.props.data.tags.map((item, index) => {  
@@ -223,7 +276,7 @@ export class CollectionDetails extends Component{
             </div>
             <hr className="my-4"/>
 
-            <div className='d-flex flex-wrap'>
+            <div className='d-flex flex-wrap justify-content-around'>
                 {dataProvider.length === 0 && <b>{$glVars.i18n.tags.noResults}</b>}
                 {dataProvider.map((item, index) => {  
                     let result =
@@ -264,6 +317,12 @@ export class CollectionDetails extends Component{
             filter.tags.push(tag);
         }
 
+        this.setState({filter: filter});
+    }
+
+    onSearch(event){
+        let filter = this.state.filter;
+        filter.queryStr = event.target.value;
         this.setState({filter: filter});
     }
 }

@@ -5,7 +5,7 @@ $file = "data.json";
 
 
 if(file_exists($file)){
-    echo "File '$file' alraedy exist. Deleting it.\n";
+    echo "File '$file' already exist. Deleting it.\n";
     unlink($file);
 }
 
