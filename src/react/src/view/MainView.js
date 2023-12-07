@@ -50,7 +50,7 @@ export class MainView extends Component{
 
         <Loading webApi={$glVars.webApi}><FontAwesomeIcon icon={faSpinner} pulse/></Loading>
 
-        <footer style={{position: "fixed", bottom: 0}} className='bg-dark w-100  text-white d-flex justify-content-center align-items-center'>
+        <footer className='mt-5 bg-dark w-100  text-white d-flex justify-content-center align-items-center'> 
           <span>Veuillez sélectionner la langue de votre choix: </span>
           {Object.entries(this.languageList).map((item, index) => {  
               let selected = (this.state.lang === item[0] ? {textDecoration: 'underline'} : null);
