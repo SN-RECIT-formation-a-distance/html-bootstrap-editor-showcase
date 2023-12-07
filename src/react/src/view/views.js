@@ -141,11 +141,11 @@ export class SpecificTemplate extends Component{
                                                     options={this.dropdownFilterList}/>   
             </div>
 
-            <hr style={{width: 400}}/>
+            <hr style={{width: 400}}/> 
 
-            <Carousel prevIcon={<FontAwesomeIcon icon={faArrowCircleLeft} className='fa-3x text-primary'/>}  nextIcon={<FontAwesomeIcon icon={faArrowCircleRight} className='fa-3x text-primary'/>}>
+            <Carousel className='container' prevIcon={<FontAwesomeIcon icon={faArrowCircleLeft} className='fa-3x text-primary'/>}  nextIcon={<FontAwesomeIcon icon={faArrowCircleRight} className='fa-3x text-primary '/>}> 
                 {dataProvider.map((items, index) => {  
-                    let result = 
+                    let result =  
                         <Carousel.Item key={index}>
                             <div className="container pb-5"> 
                                 <div className="row flex-md-row justify-content-center ">
@@ -237,7 +237,7 @@ export class CollectionDetails extends Component{
         <div className='m-3'>
             <section className="rounded p-0 mt-2 mb-2">
                 <div className="container-fluid m-0 p-0 bg-light rounded" >
-                    <div className="row flex-column flex-md-row justify-content-center m-0 p-0">
+                    <div className="row flex-column flex-md-row justify-content-center m-0 p-0 align-items-start">
                         <div className="m-0 p-0 col-sm-auto col">
                             <div style={{backgroundSize: 'cover', width: '240px'}} className="position-relative">
                                 <div style={{WebkitMaskImage: `url('./img/mask_left.png')`, WebkitMaskSize: "100% 100%", WebkitMaskRepeat: 'no-repeat', WebkitMaskOrigin: "content-box",
@@ -246,8 +246,7 @@ export class CollectionDetails extends Component{
                                 </div>
                             </div>
                         </div>
-                        <div className="align-self-center m-0 p-0 col">
-                            <Button size='lg' variant='primary' style={{float: 'right'}} className="m-2" onClick={this.props.onBack}><FontAwesomeIcon icon={faArrowLeft}/>{` ${$glVars.i18n.tags.back}`}</Button>
+                        <div className="align-self-center m-0 p-0 col">                            
                             <div className="card border-0 p-0 m-0"> 
                                 <div className="card-body bg-light text-center" >
                                     <h3>{(this.props.nameAlt.length > 0 ? this.props.nameAlt : this.props.data.name)}</h3>
@@ -263,9 +262,10 @@ export class CollectionDetails extends Component{
                                 </InputGroup>
                             </Form>
                         </div>
+                        <Button size='lg' variant='primary' className="m-2" onClick={this.props.onBack}><FontAwesomeIcon icon={faArrowLeft}/>{` ${$glVars.i18n.tags.back}`}</Button>
                     </div>
                 </div>
-            </section>
+            </section> 
 
             
             <div className="d-flex justify-content-center mt-3">
