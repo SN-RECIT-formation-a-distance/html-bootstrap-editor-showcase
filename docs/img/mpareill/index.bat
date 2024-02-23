@@ -21,7 +21,7 @@ echo ^<body^>
        set "filename=!filename: =%%20!"
           echo ^<div class="gallery"^>
 		  echo ^<a target="_blank" href="https://sn-recit-formation-a-distance.github.io/new-showcase/img/mpareill/!filename!%%~xb"^>
-		  echo ^<img src="https://sn-recit-formation-a-distance.github.io/new-showcase/img/mpareill/-showcase/img/mpareill/!filename!%%~xb" alt=""^>^</a^>
+		  echo ^<img src="https://sn-recit-formation-a-distance.github.io/new-showcase/img/mpareill/!filename!%%~xb" alt=""^>^</a^>
 		  echo ^</div^>		  
     )
    popd
