@@ -20,8 +20,8 @@ echo ^<body^>
        set "filename=%%~nb"
        set "filename=!filename: =%%20!"
           echo ^<div class="gallery"^>
-		  echo ^<a target="_blank" href="https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/!filename!%%~xb"^>
-		  echo ^<img src="https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/sci0312/!filename!%%~xb" alt=""^>^</a^>
+		  echo ^<a target="_blank" href="https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/fp01/!filename!%%~xb"^>
+		  echo ^<img src="https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/img/fp01/!filename!%%~xb" alt=""^>^</a^>
 		  echo ^</div^>		  
     )
    popd
