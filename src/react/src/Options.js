@@ -13,10 +13,10 @@ export class Options
 
     static getGateway(){
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') { 
-            return 'http://devserver/shared/new-showcase/react/build/'; 
+            return 'http://devserver/shared/html-bootstrap-editor-showcase/react/build/'; 
         } 
         else{
-            return 'https://sn-recit-formation-a-distance.github.io/new-showcase/';
+            return 'https://sn-recit-formation-a-distance.github.io/html-bootstrap-editor-showcase/';
         }
     }
 }
