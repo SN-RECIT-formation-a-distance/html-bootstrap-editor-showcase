@@ -1,6 +1,14 @@
-.clickable:hover{
-    box-shadow: 2px 2px 2px rgba(0,0,0,.2); cursor: pointer;
+.template-list{
+    max-width: 90vw;    margin: auto;    columns: 4 280px;    column-gap: 2rem;    
+    .template-item{
+        margin: 1rem;  display: inline-block;  width: 100%;  text-align: center; box-shadow: 3px 3px 3px rgba(0,0,0,.4);
+    }
+
+    .template-item:hover{
+        box-shadow: 2px 2px 2px rgba(0,0,0,.2); cursor: pointer;
+    }
 }
+
 
 .carousel{
     .carousel-indicators{

@@ -268,7 +268,7 @@ export class CollectionDetails extends Component{
             </section> 
 
             
-            <div className="d-flex justify-content-center mt-3">
+            <div className="d-flex flex-wrap  justify-content-center mt-3">
                 {this.props.data.tags.map((item, index) => {  
                     let variant = (this.state.filter.tags.includes(item) ? 'badge-primary' : 'badge-secondary');
                     return (<span onClick={() => this.onFilter(item)} key={index} className={`badge ${variant} m-1 p-2`} style={{cursor: 'pointer'}}>{item}</span> );
@@ -276,23 +276,10 @@ export class CollectionDetails extends Component{
             </div>
             <hr className="my-4"/>
 
-            <div className='d-flex flex-wrap justify-content-around'>
+            <div className='template-list'>
                 {dataProvider.length === 0 && <b>{$glVars.i18n.tags.noResults}</b>}
                 {dataProvider.map((item, index) => {  
-                    let result =
-                        <Card key={index} style={{ width: '15rem' }} className='clickable m-2 text-center' onClick={() => this.onClick(item)}>
-                            <div style={{height: 140}}>
-                                <Card.Img variant="top" src={item.img} style={{maxHeight: '100%'}}/>
-                            </div>
-                            <Card.Body>
-                                <Card.Title className='h6'>{item.name}</Card.Title>
-                                {item.tags.map((item2, index2) => {  
-                                    return (<span key={index2} className="badge badge-primary m-1">{item2}</span> );
-                                })}
-                            </Card.Body>
-                        </Card>
-
-                    return (result);
+                    return (<TemplateItem key={index} data={item} onClick={this.onClick}/>);
                 })}
             </div>
 
@@ -324,6 +311,30 @@ export class CollectionDetails extends Component{
         let filter = this.state.filter;
         filter.queryStr = event.target.value;
         this.setState({filter: filter});
+    }
+}
+
+export class TemplateItem extends Component{
+    static defaultProps = {
+        data: null,
+        onClick: null
+    };
+
+    render(){
+        let result = 
+        <Card className='template-item' onClick={() => this.props.onClick(this.props.data)}>
+            <div>
+                <Card.Img variant="top" src={this.props.data.img}/>
+            </div>
+            <Card.Body>
+                <Card.Title className='h6'>{this.props.data.name}</Card.Title>
+                {this.props.data.tags.map((item2, index2) => {  
+                    return (<span key={index2} className="badge badge-primary m-1">{item2}</span> );
+                })}
+            </Card.Body>
+        </Card>
+
+        return result;
     }
 }
 

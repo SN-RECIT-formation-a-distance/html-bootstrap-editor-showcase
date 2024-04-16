@@ -1,5 +1,5 @@
-$from = "new-showcase/src/*"
-$to = "shared/new-showcase"
+$from = "html-bootstrap-editor-showcase/src/*"
+$to = "shared/html-bootstrap-editor-showcase"
 
 try {
     . ("..\sync\watcher.ps1")
