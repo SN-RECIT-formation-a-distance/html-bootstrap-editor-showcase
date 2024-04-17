@@ -41,7 +41,6 @@ export class MainView extends Component{
   }
 
   render(){
-    let that = this;
     let main = 
     <div>                
         {['home', 'generic'].includes(this.state.view) && <GenericTemplate view={this.state.view} onDetails={this.onNavbarSelect}/>}
