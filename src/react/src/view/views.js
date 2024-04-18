@@ -200,7 +200,7 @@ export class CollectionDetails extends Component{
     }
 
     render(){
-        if(this.props.data === null){ return null; }
+        if(this.props.data === null){ return null; } 
 
         let that = this;
         let dataProvider = this.props.data.items;
@@ -232,6 +232,19 @@ export class CollectionDetails extends Component{
                 return false;
             });
         }
+
+        dataProvider = dataProvider.sort((a,b) => { 
+            let compare = a.name.localeCompare(b.name);
+            if(compare > 0){
+                return 1;
+            }
+            else if(compare < 0){
+                return -1;
+            }
+            else{
+                return 0;
+            }
+        });
 
         let main =
         <div className='m-3'>
@@ -358,7 +371,7 @@ export class ModalTemplate extends Component{
                 <Modal.Header closeButton>
                     <Modal.Title>{this.props.data.name}</Modal.Title>
                 </Modal.Header>
-
+ 
                 <Modal.Body>
                     <img style={{width: 450}} src={this.props.data.img} alt="Template thumbnail"/>
                 </Modal.Body>
