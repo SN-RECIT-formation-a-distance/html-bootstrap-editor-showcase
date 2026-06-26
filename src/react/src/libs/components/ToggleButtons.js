@@ -24,7 +24,7 @@ export class ToggleButtons extends Component {
             <ButtonToolbar style={this.props.style} data-read-only={(this.props.disabled ? 1 : 0)}>                        
                 <ToggleButtonGroup className="flex-wrap" size={this.props.bsSize} type={this.props.type} name={this.props.name} defaultValue={this.props.defaultValue} onChange={this.onChange}>                                
                     {this.props.options.map((item, index) => {  
-                        let margin = (this.props.options.length === (index + 1) ? '' : 'mr-2'); // no margin at the last element
+                        let margin = (this.props.options.length === (index + 1) ? '' : 'me-2'); // no margin at the last element
                         let element = 
                             <BsToggleButton className={`rounded ${margin}`} style={{zIndex: 0}} id={`${this.props.name}-${index}`} key={index} variant={(this.props.defaultValue.includes(item.value) ? "primary" : "secondary")} value={item.value} disabled={this.props.disabled}>
                                 {item.text}

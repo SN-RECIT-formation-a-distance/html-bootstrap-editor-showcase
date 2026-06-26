@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import { Navbar, Nav, NavDropdown, Form, InputGroup, FormControl, Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import {faHome,  faSearch, faSpinner, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Options } from '../Options';
@@ -16,10 +16,12 @@ export class MainView extends Component{
     super(props);
 
     this.onNavbarSelect = this.onNavbarSelect.bind(this);
+    this.getCollectionFromUrl = this.getCollectionFromUrl.bind(this);
 
     this.state = {
       view: 'home', // home, generic, specific
-      lang: 'fr'
+      lang: 'fr',
+      collection: null
     };
 
     this.languageList = {
@@ -31,10 +33,13 @@ export class MainView extends Component{
   componentDidMount(){
     window.document.title = Options.appTitle(); 
 
-    let that = this;
     $glVars.webApi.getTemplates((result) => {
       $glVars.data = result;
-      that.forceUpdate();
+      const collection = this.getCollectionFromUrl(result);
+      this.setState({
+        collection,
+        view: collection ? collection.type : this.state.view
+      });
     });
 
     $glVars.i18n.setLang(this.state.lang);
@@ -43,9 +48,9 @@ export class MainView extends Component{
   render(){
     let main = 
     <div>                
-        {['home', 'generic'].includes(this.state.view) && <GenericTemplate view={this.state.view} onDetails={this.onNavbarSelect}/>}
+        {['home', 'generic'].includes(this.state.view) && <GenericTemplate view={this.state.view} onDetails={this.onNavbarSelect} collection={this.state.collection}/>}
 
-        {['home', 'specific'].includes(this.state.view) && <SpecificTemplate view={this.state.view} onDetails={this.onNavbarSelect}/>}
+        {['home', 'specific'].includes(this.state.view) && <SpecificTemplate view={this.state.view} onDetails={this.onNavbarSelect} collection={this.state.collection}/>}
 
         <Loading webApi={$glVars.webApi}><FontAwesomeIcon icon={faSpinner} pulse/></Loading>
 
@@ -78,5 +83,33 @@ export class MainView extends Component{
     }
   }
 
+  getCollectionFromUrl(data){
+    if(typeof window === 'undefined'){ return null; }
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedCollection = params.get('collection');
+
+    if(!requestedCollection){ return null; }
+
+    const normalizedCollection = requestedCollection.trim().toLowerCase();
+
+    const genericMatch = (data.generic || []).find((item) => {
+      return item && item.name && item.name.trim().toLowerCase() === normalizedCollection;
+    });
+
+    if(genericMatch){
+      return { type: 'generic', data: genericMatch };
+    }
+
+    const specificMatch = (data.specific || []).find((item) => {
+      return item && item.name && item.name.trim().toLowerCase() === normalizedCollection;
+    });
+
+    if(specificMatch){
+      return { type: 'specific', data: specificMatch };
+    }
+
+    return null;
+  }
   
 }

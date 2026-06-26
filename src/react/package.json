@@ -2,31 +2,33 @@
   "name": "html-bootstrap-editor-showcase",
   "description": "HTML Bootstrap Editor Showcase",
   "version": "2.0.6-beta",
-  "main": "index.js",
+  "targets": {
+        "default": {
+            "publicUrl": "./",
+            "distDir": "build"
+        }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel ./src/index.js --out-dir ./build",
-    "build": "parcel build ./src/index.js --out-dir ./build"
+    "start": "parcel serve ./src/index.html --dist-dir ./build",
+    "build": "parcel build ./src/index.html --dist-dir ./build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "6.4.2",
-    "@fortawesome/free-solid-svg-icons": "6.4.2",
-    "@fortawesome/react-fontawesome": "0.2.0",
-    "bootstrap": "4.6.1",
-    "react": "18.2.0",
-    "react-bootstrap": "1.6.6",
-    "react-dom": "18.2.0",
+    "@fortawesome/fontawesome-svg-core": "7.2.0",
+    "@fortawesome/free-solid-svg-icons": "7.2.0",
+    "@fortawesome/react-fontawesome": "3.2.0",
+    "bootstrap": "5.3.8",
+    "react": "19.2.4",
+    "react-bootstrap": "2.10.10",
+    "react-dom": "19.2.4",
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "babel-core": "6.26.3",
-    "babel-plugin-transform-class-properties": "6.24.1",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-react": "6.24.1",
-    "parcel-bundler": "1.12.5",
-    "sass": "^1.69.5"
+    "@parcel/transformer-sass": "2.16.4",
+    "parcel": "2.16.4",
+    "sass": "^1.97.3"
   }
 }

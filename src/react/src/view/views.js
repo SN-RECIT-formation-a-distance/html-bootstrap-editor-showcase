@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import { Button, Card, Carousel, Form, FormControl, InputGroup, Modal } from 'react-bootstrap';
+import { Button, Card, Carousel, Form, InputGroup, Modal } from 'react-bootstrap';
 import { $glVars } from '../common/common';
 import { ToggleButtons } from '../libs/components/ToggleButtons';
 import { faArrowCircleLeft, faArrowCircleRight, faArrowLeft, faDownload, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,8 @@ import { Assets } from '../assets/Assets';
 export class GenericTemplate extends Component{
     static defaultProps = {
         onDetails: null,
-        view: ''
+        view: '',
+        collection: null
     };
 
     constructor(props){
@@ -22,9 +23,17 @@ export class GenericTemplate extends Component{
       this.state = {details: null};
     } 
 
+    componentDidMount(){
+        this.openCollectionFromUrl();
+    }
+
     componentDidUpdate(prevProps){
         if((prevProps.view !== this.props.view) && (this.props.view !== 'generic')){
             this.setState({details: null});
+        }
+
+        if(this.props.collection !== prevProps.collection || prevProps.view !== this.props.view){
+            this.openCollectionFromUrl();
         }
     }
 
@@ -72,12 +81,27 @@ export class GenericTemplate extends Component{
     onBack(){
         this.props.onDetails('home')
     }
+
+    openCollectionFromUrl(){
+        if(this.state.details !== null || !this.props.collection || this.props.collection.type !== 'generic'){
+            return;
+        }
+
+        const match = ($glVars.data && $glVars.data.generic || []).find((item) => {
+            return item && item.name && item.name.trim().toLowerCase() === this.props.collection.data.name.trim().toLowerCase();
+        });
+
+        if(match){
+            this.setState({details: match}, () => this.props.onDetails('generic'));
+        }
+    }
 }
 
 export class SpecificTemplate extends Component{
     static defaultProps = {
         onDetails: null,
-        view: ''
+        view: '',
+        collection: null
     };
     
     constructor(props){
@@ -95,9 +119,17 @@ export class SpecificTemplate extends Component{
         this.dropdownFilterList = []
     } 
 
+    componentDidMount(){
+        this.openCollectionFromUrl();
+    }
+
     componentDidUpdate(prevProps){
         if((prevProps.view !== this.props.view) && (this.props.view !== 'specific')){
             this.setState({details: null});
+        }
+
+        if(this.props.collection !== prevProps.collection || prevProps.view !== this.props.view){
+            this.openCollectionFromUrl();
         }
     }
 
@@ -179,6 +211,20 @@ export class SpecificTemplate extends Component{
     
     onBack(){
         this.props.onDetails('home')
+    }
+
+    openCollectionFromUrl(){
+        if(this.state.details !== null || !this.props.collection || this.props.collection.type !== 'specific'){
+            return;
+        }
+
+        const match = ($glVars.data && $glVars.data.specific || []).find((item) => {
+            return item && item.name && item.name.trim().toLowerCase() === this.props.collection.data.name.trim().toLowerCase();
+        });
+
+        if(match){
+            this.setState({details: match}, () => this.props.onDetails('specific'));
+        }
     }
 }
 
@@ -268,10 +314,10 @@ export class CollectionDetails extends Component{
                             </div>
                             <Form style={{width: "60%", margin: "auto"}} className='mb-2 mb-lg-0'> 
                                 <InputGroup> 
-                                    <FormControl type="text" placeholder={$glVars.i18n.tags.search} onChange={this.onSearch} />
-                                    <InputGroup.Prepend>
-                                        <InputGroup.Text><FontAwesomeIcon icon={faSearch} title={$glVars.i18n.tags.search}/></InputGroup.Text>
-                                    </InputGroup.Prepend>
+                                    <Form.Control type="text" placeholder={$glVars.i18n.tags.search} onChange={this.onSearch} />
+                                    <InputGroup.Text>
+                                        <FontAwesomeIcon icon={faSearch} title={$glVars.i18n.tags.search}/>
+                                    </InputGroup.Text>
                                 </InputGroup>
                             </Form>
                         </div>
