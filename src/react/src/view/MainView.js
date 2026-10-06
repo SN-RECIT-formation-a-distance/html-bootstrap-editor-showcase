@@ -47,20 +47,24 @@ export class MainView extends Component{
 
   render(){
     let main = 
-    <div>                
-        {['home', 'generic'].includes(this.state.view) && <GenericTemplate view={this.state.view} onDetails={this.onNavbarSelect} collection={this.state.collection}/>}
+    <div>        
+        <div className='alert alert-warning p-3 m-3'>
+            <h1 className='mb-4'>⚠️ Cette vitrine a été déplacée</h1>
+            <p>La vitrine est maintenant disponible à la nouvelle adresse suivante : <strong>https://cssbe-distance-learning.github.io/html-bootstrap-editor-showcase/index.html</strong></p>
+            <p>Veuillez mettre à jour la configuration <strong>showcase_url</strong> dans l'administration de votre site Moodle afin qu'elle pointe vers cette nouvelle URL.</p>
+            <p className='mb-5'>L'ancienne adresse pourrait être retirée dans une prochaine version. Merci de procéder à cette mise à jour dès que possible.</p>
 
-        {['home', 'specific'].includes(this.state.view) && <SpecificTemplate view={this.state.view} onDetails={this.onNavbarSelect} collection={this.state.collection}/>}
+            <hr/>
 
+            <h1 className="mt-5 mb-4">⚠️ This Showcase Has Moved</h1>
+            <p>The showcase is now available at the following address: <strong>https://cssbe-distance-learning.github.io/html-bootstrap-editor-showcase/index.html</strong></p>
+            <p>Please update the <strong>showcase_url</strong> setting in your Moodle site's administration so that it points to this new URL.</p>
+            <p>The previous address may be removed in a future release. Please update your configuration as soon as possible.</p>
+        </div>        
+        
         <Loading webApi={$glVars.webApi}><FontAwesomeIcon icon={faSpinner} pulse/></Loading>
 
-        <footer className='mt-5 bg-dark w-100  text-white d-flex justify-content-center align-items-center'> 
-          <span>Veuillez sélectionner la langue de votre choix: </span>
-          {Object.entries(this.languageList).map((item, index) => {  
-              let selected = (this.state.lang === item[0] ? {textDecoration: 'underline'} : null);
-              return (<Button className='text-white' style={selected}  key={index} variant='link' onClick={() => this.onNavbarSelect(item[0])}>{item[1]}</Button>);
-          })}
-        </footer>
+        
     </div>;
 
     return main; 
